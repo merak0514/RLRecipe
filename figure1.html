@@ -675,17 +675,41 @@ drawAll();
 </script>
 
 <style>
+  body {
+    background: var(--surface);
+  }
   .masthead,
   .plate:not(:first-of-type),
-  .colophon {
+  .colophon,
+  .plate-head,
+  figcaption {
     display: none !important;
   }
   .wrap {
     max-width: 1120px;
-    padding-top: 24px;
+    margin: 0 auto;
+    padding: 24px 0 0;
   }
   .plate:first-of-type {
     border-top: none;
-    padding-top: 0;
+    padding: 0;
+  }
+  .frame {
+    border: 0;
+    border-radius: 0;
+    padding: 0;
+    background: transparent;
+  }
+  .tick {
+    font-size: 14px;
+  }
+  .axname {
+    font-size: 14px;
+  }
+  .note {
+    font-size: 15px;
+  }
+  .note-strong {
+    font-size: 15px;
   }
 </style>

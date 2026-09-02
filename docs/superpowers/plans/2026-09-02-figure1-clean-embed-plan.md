@@ -32,7 +32,7 @@ Append a style override to `figure1.html` with these exact rules:
 
 ```html
 <style>
-  body { background: #ffffff; }
+  body { background: var(--surface); }
   .masthead,
   .plate:not(:first-of-type),
   .colophon,
@@ -103,4 +103,3 @@ Load the public URL in the browser and inspect the page. Expected: exactly one v
 - [ ] **Step 3: Verify interaction and responsive text**
 
 At desktop width, move the pointer over the chart plot. Expected: the vertical guide, highlighted point, and tooltip still appear. At a narrow viewport, expected: the enlarged axis labels and annotation remain inside the chart without horizontal overflow.
-
