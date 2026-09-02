@@ -26,7 +26,7 @@
 - Consumes: Existing `f1` chart mount and SVG classes (`.tick`, `.axname`, `.note`, `.note-strong`).
 - Produces: A single visible Figure 1 chart frame suitable for Notion iframe embedding.
 
-- [ ] **Step 1: Replace the embed override with the final visual rules**
+- [x] **Step 1: Replace the embed override with the final visual rules**
 
 Append a style override to `figure1.html` with these exact rules:
 
@@ -62,7 +62,7 @@ Append a style override to `figure1.html` with these exact rules:
 </style>
 ```
 
-- [ ] **Step 2: Verify the source contains no visible caption path**
+- [x] **Step 2: Verify the source contains no visible caption path**
 
 Run:
 
@@ -72,7 +72,7 @@ rg -n "\.plate-head|figcaption|\.tick|\.axname|\.note-strong" figure1.html
 
 Expected: the embed override hides `.plate-head` and `figcaption`, and the enlarged text rules are present.
 
-- [ ] **Step 3: Commit the visual change**
+- [x] **Step 3: Commit the visual change**
 
 ```bash
 git add figure1.html
@@ -88,7 +88,7 @@ git commit -m "Clean up Figure 1 embed presentation"
 - Consumes: GitHub `main` branch at `merak0514/RLRecipe`.
 - Produces: `https://htmlpreview.github.io/?https://github.com/merak0514/RLRecipe/blob/main/figure1.html`
 
-- [ ] **Step 1: Push the committed page**
+- [x] **Step 1: Push the committed page**
 
 ```bash
 git push origin main
@@ -96,10 +96,10 @@ git push origin main
 
 Expected: the new commit is accepted on `main`.
 
-- [ ] **Step 2: Verify visible content at the public URL**
+- [x] **Step 2: Verify visible content at the public URL**
 
 Load the public URL in the browser and inspect the page. Expected: exactly one visible chart frame; no masthead, chart title, subtitle, caption, or Figure 2-4 content.
 
-- [ ] **Step 3: Verify interaction and responsive text**
+- [x] **Step 3: Verify interaction and responsive text**
 
 At desktop width, move the pointer over the chart plot. Expected: the vertical guide, highlighted point, and tooltip still appear. At a narrow viewport, expected: the enlarged axis labels and annotation remain inside the chart without horizontal overflow.
