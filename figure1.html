@@ -1,0 +1,691 @@
+<title>XPO Training Figures</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Serif:ital,wght@0,400;1,400&display=swap">
+<style>
+:root{
+  color-scheme: light;
+  --plane:#f3f4f7;
+  --surface:#fbfbfc;
+  --ink:#0d0e11;
+  --ink-2:#4a4d55;
+  --muted:#84878f;
+  --grid:#e4e5ea;
+  --axis:#c9ccd3;
+  --rule:rgba(13,14,17,.10);
+  --baseline:#eb6834;
+  --recipe:#2a78d6;
+  --tip-bg:#ffffff;
+  --tip-ring:rgba(13,14,17,.12);
+  --tip-shadow:0 6px 20px rgba(13,14,17,.13);
+  --band:rgba(235,104,52,.07);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme: dark;
+    --plane:#0f1013;
+    --surface:#17181b;
+    --ink:#f4f5f7;
+    --ink-2:#b6b9c1;
+    --muted:#84878f;
+    --grid:#26282d;
+    --axis:#3a3d44;
+    --rule:rgba(244,245,247,.12);
+    --baseline:#d95926;
+    --recipe:#3987e5;
+    --tip-bg:#1f2126;
+    --tip-ring:rgba(244,245,247,.16);
+    --tip-shadow:0 6px 20px rgba(0,0,0,.5);
+    --band:rgba(217,89,38,.10);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --plane:#0f1013;
+  --surface:#17181b;
+  --ink:#f4f5f7;
+  --ink-2:#b6b9c1;
+  --muted:#84878f;
+  --grid:#26282d;
+  --axis:#3a3d44;
+  --rule:rgba(244,245,247,.12);
+  --baseline:#d95926;
+  --recipe:#3987e5;
+  --tip-bg:#1f2126;
+  --tip-ring:rgba(244,245,247,.16);
+  --tip-shadow:0 6px 20px rgba(0,0,0,.5);
+  --band:rgba(217,89,38,.10);
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:var(--plane);
+  color:var(--ink);
+  font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  font-size:15px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1120px;margin:0 auto;padding:56px 28px 96px}
+
+/* ---- masthead ---- */
+.masthead{display:flex;flex-direction:column;gap:14px;padding-bottom:26px}
+.kicker{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);
+}
+h1{
+  margin:0;font-size:31px;font-weight:600;letter-spacing:-.017em;line-height:1.22;
+  text-wrap:balance;max-width:24ch;
+}
+.standfirst{
+  margin:0;max-width:70ch;color:var(--ink-2);font-size:15.5px;
+  font-family:"IBM Plex Serif",Georgia,serif;
+}
+
+/* ---- cast strip: establishes the two arms once ---- */
+.cast{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0;
+  margin-top:28px;border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+}
+.arm{display:flex;gap:13px;padding:17px 20px 17px 0}
+.arm + .arm{border-left:1px solid var(--rule);padding-left:24px}
+.swatch{flex:0 0 auto;width:3px;border-radius:2px;margin-top:4px;height:auto;align-self:stretch}
+.arm-b .swatch{background:var(--baseline)}
+.arm-r .swatch{background:var(--recipe)}
+.arm-id{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.5px;font-weight:500;
+  color:var(--ink);letter-spacing:.01em;
+}
+.arm-role{font-size:13px;color:var(--ink-2);margin-top:1px;max-width:44ch}
+.arm-meta{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11.5px;color:var(--muted);margin-top:6px;letter-spacing:.01em;
+}
+
+/* ---- smoothing control ---- */
+.controls{display:flex;align-items:center;gap:14px;flex-wrap:wrap;padding:18px 0 0}
+.ctl-label{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);
+}
+.seg{display:flex;border:1px solid var(--rule);border-radius:3px;overflow:hidden}
+.seg button{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;
+  padding:6px 13px;border:0;border-left:1px solid var(--rule);
+  background:transparent;color:var(--ink-2);cursor:pointer;
+  letter-spacing:.01em;line-height:1.4;
+}
+.seg button:first-child{border-left:0}
+.seg button:hover{background:var(--grid)}
+.seg button[aria-pressed="true"]{background:var(--recipe);color:#fff}
+.seg button:focus-visible{outline:2px solid var(--recipe);outline-offset:-2px}
+.ctl-hint{font-size:12px;color:var(--muted)}
+
+/* ---- figure plates ---- */
+.plate{padding:44px 0 8px;border-top:1px solid var(--rule)}
+.plate:first-of-type{border-top:none}
+.plate-head{display:flex;flex-direction:column;gap:5px;margin-bottom:20px}
+.plate-no{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:11.5px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);
+}
+.plate-title{margin:0;font-size:19.5px;font-weight:600;letter-spacing:-.011em;text-wrap:balance}
+.plate-sub{margin:0;font-size:13.5px;color:var(--ink-2);max-width:78ch}
+
+.frame{
+  background:var(--surface);
+  border:1px solid var(--rule);
+  border-radius:3px;
+  padding:20px 20px 14px;
+  position:relative;
+}
+.panels{display:grid;grid-template-columns:repeat(2,1fr);gap:4px 26px}
+@media (max-width:760px){.panels{grid-template-columns:1fr}}
+
+.legend{display:flex;flex-wrap:wrap;gap:20px;padding:0 2px 14px}
+.lg{display:flex;align-items:center;gap:8px;font-size:12.5px;color:var(--ink-2)}
+.lg i{display:block;width:17px;height:0;border-top-style:solid;border-radius:2px}
+.lg-b i{border-top-width:2px;border-top-color:var(--baseline)}
+.lg-b.ghost i{border-top-width:1.5px;opacity:.55}
+.lg-r i{border-top-width:2px;border-top-color:var(--recipe)}
+.lg code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;color:var(--muted)}
+
+.panel-cap{
+  font-size:12.5px;font-weight:500;color:var(--ink);
+  padding:2px 0 0 46px;letter-spacing:-.004em;
+}
+.panel-cap span{color:var(--muted);font-weight:400;font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px}
+
+svg{display:block;width:100%;height:auto;overflow:visible}
+.tick{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;fill:var(--muted)}
+.axname{font-family:"IBM Plex Sans",sans-serif;font-size:11px;fill:var(--muted);letter-spacing:.04em}
+.note{font-family:"IBM Plex Sans",sans-serif;font-size:11.5px;fill:var(--ink-2)}
+.note-strong{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11.5px;fill:var(--ink)}
+
+figcaption{
+  font-family:"IBM Plex Serif",Georgia,serif;
+  font-size:14px;line-height:1.62;color:var(--ink-2);
+  max-width:84ch;margin-top:16px;
+}
+figcaption b{color:var(--ink);font-weight:400;font-family:"IBM Plex Sans",sans-serif;font-size:13.4px}
+figcaption code{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12.3px;color:var(--ink);
+}
+figure{margin:0}
+
+/* ---- tooltip ---- */
+.tip{
+  position:absolute;pointer-events:none;opacity:0;transition:opacity .09s;
+  background:var(--tip-bg);border:1px solid var(--tip-ring);border-radius:3px;
+  box-shadow:var(--tip-shadow);padding:8px 11px;z-index:5;min-width:150px;
+}
+.tip-step{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:10.5px;
+  color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:5px;
+}
+.tip-row{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--ink-2);white-space:nowrap}
+.tip-row + .tip-row{margin-top:3px}
+.tip-row i{width:8px;height:8px;border-radius:50%;flex:0 0 auto}
+.tip-row b{
+  margin-left:auto;padding-left:14px;font-family:"IBM Plex Mono",ui-monospace,monospace;
+  font-size:12px;font-weight:500;color:var(--ink);font-variant-numeric:tabular-nums;
+}
+
+/* ---- closing note ---- */
+.colophon{
+  margin-top:52px;padding-top:22px;border-top:1px solid var(--rule);
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:22px 34px;
+}
+.col-h{
+  font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:7px;
+}
+.col-b{font-size:13px;color:var(--ink-2);line-height:1.58}
+.col-b code{font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:12px;color:var(--ink)}
+
+@media (prefers-reduced-motion: reduce){*{transition:none!important}}
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="kicker">MiniCPM RL Team · figure set · redraw</div>
+    <h1>Long-CoT RL Training Figures</h1>
+    <p class="standfirst">
+      The four training figures for <em>Extending GRPO with a Critic</em>, redrawn from the
+      math_recipe all-arm run log. AIME 2025 is evaluated every 5 steps. Faint dots are the
+      raw records; solid lines are a centered moving average.
+    </p>
+    <div class="cast">
+      <div class="arm arm-b">
+        <div class="swatch"></div>
+        <div>
+          <div class="arm-id">Baseline · naive GRPO</div>
+          <div class="arm-role">§1 — the raw 103,210-problem pool, no dynamic sampling, no length control</div>
+          <div class="arm-meta">400 steps</div>
+        </div>
+      </div>
+      <div class="arm arm-r">
+        <div class="swatch"></div>
+        <div>
+          <div class="arm-id">Complete recipe</div>
+          <div class="arm-role">§4 — critic-based credit assignment on the cleaned 32,412-problem set; the length penalty never reaches the critic</div>
+          <div class="arm-meta">500 steps</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="controls">
+      <span class="ctl-label">Smoothing window</span>
+      <div class="seg" id="smoothing" role="group" aria-label="Smoothing window"></div>
+      <span class="ctl-hint">centered moving average, in training steps</span>
+    </div>
+  </header>
+
+  <!-- ============ FIGURE 1 ============ -->
+  <section class="plate">
+    <div class="plate-head">
+      <div class="plate-no">Figure 1 · §1 Diagnosing the baseline</div>
+      <h2 class="plate-title">The baseline learns, but not for long</h2>
+      <p class="plate-sub">Held-out AIME 2025 accuracy. Naive GRPO on the raw data pool.</p>
+    </div>
+    <figure>
+      <div class="frame"><div id="f1"></div></div>
+      <figcaption>
+        <b>Figure 1.</b> Over the first 150 steps AIME 2025 climbs from roughly 62% to 74%; across
+        the following 250 steps it gains nothing further. The curve reaches its 74% plateau at
+        <code>step 144</code> and closes at the same level at <code>step 399</code>, dipping to
+        around 70% near <code>step 230</code> along the way. Every point of improvement lands in the
+        first third of training.
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ FIGURE 2 ============ -->
+  <section class="plate">
+    <div class="plate-head">
+      <div class="plate-no">Figure 2 · §1 Four quantities that degrade together</div>
+      <h2 class="plate-title">What is happening underneath the plateau</h2>
+      <p class="plate-sub">Four diagnostic views of the same baseline arm. Every panel shares its y-range with Figure 4, so the two figures read directly against each other.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="panels">
+          <div><div class="panel-cap">Response length <span>tokens</span></div><div id="f2a"></div></div>
+          <div><div class="panel-cap">Repetition</div><div id="f2b"></div></div>
+          <div><div class="panel-cap">Truncation</div><div id="f2c"></div></div>
+          <div><div class="panel-cap">Zero-variance discards <span>share of sampled groups</span></div><div id="f2d"></div></div>
+        </div>
+      </div>
+      <figcaption>
+        <b>Figure 2.</b> In reading order: response length, repetition fraction, truncation ratio,
+        and the share of sampled groups discarded. Length climbs from about 30k past 50k and has
+        still not settled when training ends; truncation follows it from roughly 1% to peaks above
+        8%, and repetition reaches about 3%. The fourth panel is the bill: some 60% of groups are
+        already discarded as all-correct or all-wrong at <code>step 0</code>, approaching 70% by the
+        end — at eight complete
+        rollouts per group, more than half the sampling budget produces no policy gradient. The
+        generation budget is 128k; the axis stops at 60k to keep the curve legible.
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ FIGURE 3 ============ -->
+  <section class="plate">
+    <div class="plate-head">
+      <div class="plate-no">Figure 3 · §4.1 Main result</div>
+      <h2 class="plate-title">The complete recipe clears the baseline's ceiling</h2>
+      <p class="plate-sub">AIME 2025 for the complete recipe against the §1 baseline, from the same starting checkpoint and under the same evaluation protocol.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="legend">
+          <span class="lg lg-r"><i></i>Complete recipe</span>
+          <span class="lg lg-b ghost"><i></i>§1 baseline</span>
+        </div>
+        <div id="f3"></div>
+      </div>
+      <figcaption>
+        <b>Figure 3.</b> The baseline (faded) tops out at 74% around <code>step 144</code> and then
+        runs flat. At that same point the complete recipe is still climbing, and it goes on into the
+        low 80s before levelling off. The two curves separate only after the baseline stops
+        improving — the gap comes from a longer trainable interval, not from a faster start.
+      </figcaption>
+    </figure>
+  </section>
+
+  <!-- ============ FIGURE 4 ============ -->
+  <section class="plate">
+    <div class="plate-head">
+      <div class="plate-no">Figure 4 · §4.2 The same diagnostics</div>
+      <h2 class="plate-title">Each symptom changes shape</h2>
+      <p class="plate-sub">The four panels of Figure 2 with the complete recipe overlaid. Y-ranges are identical to Figure 2.</p>
+    </div>
+    <figure>
+      <div class="frame">
+        <div class="legend">
+          <span class="lg lg-r"><i></i>Complete recipe</span>
+          <span class="lg lg-b ghost"><i></i>§1 baseline</span>
+        </div>
+        <div class="panels">
+          <div><div class="panel-cap">Response length <span>tokens</span></div><div id="f4a"></div></div>
+          <div><div class="panel-cap">Repetition</div><div id="f4b"></div></div>
+          <div><div class="panel-cap">Truncation</div><div id="f4c"></div></div>
+          <div><div class="panel-cap">Zero-variance discards <span>share of sampled groups</span></div><div id="f4d"></div></div>
+        </div>
+      </div>
+      <figcaption>
+        <b>Figure 4.</b> Length peaks near 40k, never approaches the generation cap, and falls back
+        to about 30k by the end. Truncation stays under half the baseline's, and repetition stays
+        below it throughout. Discards start at 26%, well under half the baseline's — the cleaned pool
+        removes most of the doomed zero-variance problems up front. The ratio then climbs to 53% over
+        training, which says the model is turning problems into ones it already solves, not that the
+        recipe is failing.
+      </figcaption>
+    </figure>
+  </section>
+
+  <div class="colophon">
+    <div>
+      <div class="col-h">Source</div>
+      <div class="col-b">Training run log, <code>2026-09-02</code> snapshot. Both arms start from the
+        same checkpoint and are evaluated under the same protocol: AIME 2025, sampled every 5 steps.</div>
+    </div>
+    <div>
+      <div class="col-h">Smoothing</div>
+      <div class="col-b">Centered moving average over a window measured in training steps, so the
+        5-step eval cadence and the per-step rollout cadence are treated alike. The raw unsmoothed
+        records are plotted alongside as faint dots; no noise is hidden. The figures load at
+        <code>± 5 steps</code>. Caption values are rounded so they hold at any setting — a peak read
+        off a lightly smoothed curve is partly sampling noise and shrinks as the window widens.</div>
+    </div>
+    <div>
+      <div class="col-h">Discard ratio</div>
+      <div class="col-b">One definition across arms: GRPO arms use the all-zero plus all-one group
+        share; PPO arms are reconstructed as <code>(D₀+D₁)/(D₀+D₁+60)</code>. Effective gradient
+        groups = 1 − the plotted value.</div>
+    </div>
+  </div>
+
+</div>
+
+<script>
+const DATA = {"baseline":{"acc":[[4,0.60833],[9,0.66667],[14,0.59167],[19,0.625],[24,0.575],[29,0.60833],[34,0.60833],[39,0.65],[44,0.56667],[49,0.65833],[54,0.58333],[59,0.675],[64,0.63333],[69,0.61667],[74,0.65833],[79,0.625],[84,0.625],[89,0.63333],[94,0.7],[99,0.65],[104,0.71667],[109,0.74167],[114,0.70833],[119,0.7],[124,0.71667],[129,0.725],[134,0.725],[139,0.71667],[144,0.775],[149,0.74167],[154,0.75833],[159,0.73333],[164,0.73333],[169,0.75],[174,0.70833],[179,0.75833],[184,0.70833],[189,0.74167],[194,0.7],[199,0.74167],[204,0.73333],[209,0.74167],[214,0.7],[219,0.70833],[224,0.725],[229,0.70833],[234,0.675],[239,0.69167],[244,0.71667],[249,0.725],[254,0.73333],[259,0.71667],[264,0.675],[269,0.73333],[274,0.78333],[279,0.70833],[284,0.71667],[289,0.725],[294,0.73333],[299,0.75833],[304,0.71667],[309,0.74167],[314,0.69167],[319,0.70833],[324,0.75833],[329,0.725],[334,0.7],[339,0.725],[344,0.74167],[349,0.71667],[354,0.75833],[359,0.75833],[364,0.76667],[369,0.73333],[374,0.74167],[379,0.71667],[384,0.725],[389,0.75833],[394,0.75833],[399,0.71667]],"len":[[4,29821.0],[9,28309.0],[14,32497.0],[19,29006.0],[24,28600.0],[29,29342.0],[34,32813.0],[39,28819.0],[44,34069.0],[49,32870.0],[54,31843.0],[59,30966.0],[64,29641.0],[69,27988.0],[74,28494.0],[79,30871.0],[84,26628.0],[89,30665.0],[94,29405.0],[99,31107.0],[104,34610.0],[109,32239.0],[114,33833.0],[119,32508.0],[124,33371.0],[129,35321.0],[134,34989.0],[139,36732.0],[144,36974.0],[149,37418.0],[154,40571.0],[159,40435.0],[164,43265.0],[169,45863.0],[174,46422.0],[179,48997.0],[184,51332.0],[189,48518.0],[194,56721.0],[199,50061.0],[204,53778.0],[209,49662.0],[214,50742.0],[219,50031.0],[224,47021.0],[229,49848.0],[234,48661.0],[239,46626.0],[244,48736.0],[249,45468.0],[254,45163.0],[259,46264.0],[264,48891.0],[269,52195.0],[274,50278.0],[279,52770.0],[284,51528.0],[289,52300.0],[294,47157.0],[299,43805.0],[304,46881.0],[309,46838.0],[314,47168.0],[319,47363.0],[324,47879.0],[329,48952.0],[334,49754.0],[339,49445.0],[344,47628.0],[349,46402.0],[354,44201.0],[359,42753.0],[364,45727.0],[369,45388.0],[374,46916.0],[379,49161.0],[384,49538.0],[389,49533.0],[394,55291.0],[399,55530.0]],"rep":[[4,0.00833],[9,0.01667],[14,0.0],[19,0.0],[24,0.0],[29,0.0],[34,0.01667],[39,0.0],[44,0.00833],[49,0.01667],[54,0.00833],[59,0.00833],[64,0.0],[69,0.0],[74,0.0],[79,0.00833],[84,0.0],[89,0.0],[94,0.00833],[99,0.0],[104,0.0],[109,0.0],[114,0.0],[119,0.00833],[124,0.0],[129,0.00833],[134,0.00833],[139,0.0],[144,0.01667],[149,0.00833],[154,0.0],[159,0.025],[164,0.01667],[169,0.01667],[174,0.00833],[179,0.00833],[184,0.03333],[189,0.00833],[194,0.01667],[199,0.01667],[204,0.05],[209,0.025],[214,0.04167],[219,0.01667],[224,0.01667],[229,0.00833],[234,0.00833],[239,0.04167],[244,0.01667],[249,0.0],[254,0.00833],[259,0.01667],[264,0.01667],[269,0.05],[274,0.01667],[279,0.03333],[284,0.0],[289,0.025],[294,0.0],[299,0.00833],[304,0.0],[309,0.01667],[314,0.025],[319,0.00833],[324,0.0],[329,0.00833],[334,0.025],[339,0.0],[344,0.0],[349,0.00833],[354,0.0],[359,0.0],[364,0.0],[369,0.0],[374,0.0],[379,0.00833],[384,0.0],[389,0.0],[394,0.00833],[399,0.0]],"trunc":[[4,0.01667],[9,0.01667],[14,0.00833],[19,0.0],[24,0.0],[29,0.0],[34,0.025],[39,0.0],[44,0.01667],[49,0.01667],[54,0.025],[59,0.00833],[64,0.0],[69,0.0],[74,0.0],[79,0.00833],[84,0.0],[89,0.0],[94,0.00833],[99,0.0],[104,0.0],[109,0.01667],[114,0.0],[119,0.00833],[124,0.0],[129,0.00833],[134,0.00833],[139,0.00833],[144,0.025],[149,0.00833],[154,0.00833],[159,0.025],[164,0.03333],[169,0.05],[174,0.05],[179,0.04167],[184,0.05],[189,0.05833],[194,0.1],[199,0.05],[204,0.11667],[209,0.05833],[214,0.125],[219,0.06667],[224,0.05833],[229,0.05833],[234,0.05],[239,0.05833],[244,0.09167],[249,0.04167],[254,0.03333],[259,0.06667],[264,0.08333],[269,0.06667],[274,0.06667],[279,0.075],[284,0.03333],[289,0.05],[294,0.025],[299,0.025],[304,0.025],[309,0.05],[314,0.05833],[319,0.00833],[324,0.03333],[329,0.01667],[334,0.06667],[339,0.04167],[344,0.01667],[349,0.025],[354,0.00833],[359,0.0],[364,0.0],[369,0.0],[374,0.00833],[379,0.01667],[384,0.0],[389,0.00833],[394,0.025],[399,0.025]],"drop":[[0,0.70312],[1,0.67188],[2,0.5625],[3,0.625],[4,0.5625],[5,0.53125],[6,0.5],[7,0.53125],[8,0.54688],[9,0.54688],[10,0.60938],[11,0.64062],[12,0.4375],[13,0.5],[14,0.5625],[15,0.51562],[16,0.57812],[17,0.5],[18,0.57812],[19,0.60938],[20,0.82812],[21,0.65625],[22,0.65625],[23,0.625],[24,0.54688],[25,0.5625],[26,0.54688],[27,0.48438],[28,0.45312],[29,0.48438],[30,0.5625],[31,0.59375],[32,0.59375],[33,0.48438],[34,0.46875],[35,0.53125],[36,0.51562],[37,0.51562],[38,0.5],[39,0.5625],[40,0.59375],[41,0.46875],[42,0.54688],[43,0.5],[44,0.57812],[45,0.54688],[46,0.54688],[47,0.57812],[48,0.625],[49,0.57812],[50,0.42188],[51,0.5625],[52,0.51562],[53,0.57812],[54,0.64062],[55,0.54688],[56,0.5625],[57,0.54688],[58,0.54688],[59,0.46875],[60,0.6875],[61,0.82812],[62,0.75],[63,0.5625],[64,0.53125],[65,0.54688],[66,0.5625],[67,0.60938],[68,0.57812],[69,0.5625],[70,0.54688],[71,0.54688],[72,0.625],[73,0.53125],[74,0.64062],[75,0.625],[76,0.5625],[77,0.67188],[78,0.53125],[79,0.57812],[80,0.875],[81,0.65625],[82,0.60938],[83,0.64062],[84,0.54688],[85,0.5625],[86,0.64062],[87,0.51562],[88,0.53125],[89,0.625],[90,0.625],[91,0.48438],[92,0.53125],[93,0.65625],[94,0.54688],[95,0.64062],[96,0.70312],[97,0.59375],[98,0.59375],[99,0.53125],[100,0.65625],[101,0.625],[102,0.48438],[103,0.54688],[104,0.57812],[105,0.65625],[106,0.625],[107,0.54688],[108,0.53125],[109,0.71875],[110,0.59375],[111,0.5625],[112,0.70312],[113,0.73438],[114,0.57812],[115,0.60938],[116,0.59375],[117,0.60938],[118,0.70312],[119,0.57812],[120,0.70312],[121,0.625],[122,0.6875],[123,0.64062],[124,0.625],[125,0.6875],[126,0.51562],[127,0.57812],[128,0.64062],[129,0.67188],[130,0.64062],[131,0.67188],[132,0.65625],[133,0.67188],[134,0.67188],[135,0.71875],[136,0.625],[137,0.70312],[138,0.67188],[139,0.57812],[140,0.54688],[141,0.54688],[142,0.625],[143,0.73438],[144,0.65625],[145,0.59375],[146,0.57812],[147,0.70312],[148,0.70312],[149,0.57812],[150,0.48438],[151,0.67188],[152,0.625],[153,0.59375],[154,0.67188],[155,0.67188],[156,0.70312],[157,0.57812],[158,0.57812],[159,0.73438],[160,0.64062],[161,0.67188],[162,0.64062],[163,0.67188],[164,0.67188],[165,0.6875],[166,0.73438],[167,0.71875],[168,0.65625],[169,0.67188],[170,0.71875],[171,0.65625],[172,0.73438],[173,0.71875],[174,0.65625],[175,0.67188],[176,0.60938],[177,0.76562],[178,0.79688],[179,0.71875],[180,0.65625],[181,0.71875],[182,0.65625],[183,0.67188],[184,0.76562],[185,0.6875],[186,0.65625],[187,0.76562],[188,0.5625],[189,0.73438],[190,0.59375],[191,0.65625],[192,0.73438],[193,0.75],[194,0.6875],[195,0.6875],[196,0.67188],[197,0.65625],[198,0.59375],[199,0.71875],[200,0.64062],[201,0.76562],[202,0.70312],[203,0.6875],[204,0.71875],[205,0.6875],[206,0.67188],[207,0.75],[208,0.57812],[209,0.71875],[210,0.70312],[211,0.71875],[212,0.57812],[213,0.70312],[214,0.76562],[215,0.71875],[216,0.73438],[217,0.73438],[218,0.73438],[219,0.60938],[220,0.71875],[221,0.6875],[222,0.67188],[223,0.6875],[224,0.67188],[225,0.76562],[226,0.625],[227,0.67188],[228,0.64062],[229,0.6875],[230,0.70312],[231,0.64062],[232,0.71875],[233,0.73438],[234,0.64062],[235,0.71875],[236,0.71875],[237,0.60938],[238,0.6875],[239,0.57812],[240,0.71875],[241,0.64062],[242,0.70312],[243,0.70312],[244,0.6875],[245,0.82812],[246,0.70312],[247,0.54688],[248,0.64062],[249,0.65625],[250,0.71875],[251,0.67188],[252,0.75],[253,0.75],[254,0.75],[255,0.73438],[256,0.60938],[257,0.6875],[258,0.67188],[259,0.75],[260,0.64062],[261,0.73438],[262,0.75],[263,0.76562],[264,0.625],[265,0.71875],[266,0.71875],[267,0.70312],[268,0.70312],[269,0.64062],[270,0.6875],[271,0.6875],[272,0.75],[273,0.65625],[274,0.70312],[275,0.64062],[276,0.84375],[277,0.625],[278,0.75],[279,0.8125],[280,0.8125],[281,0.75],[282,0.59375],[283,0.6875],[284,0.73438],[285,0.75],[286,0.78125],[287,0.78125],[288,0.6875],[289,0.75],[290,0.71875],[291,0.6875],[292,0.6875],[293,0.75],[294,0.64062],[295,0.59375],[296,0.6875],[297,0.71875],[298,0.71875],[299,0.79688],[300,0.92188],[301,0.875],[302,0.875],[303,0.67188],[304,0.64062],[305,0.60938],[306,0.70312],[307,0.65625],[308,0.75],[309,0.625],[310,0.73438],[311,0.65625],[312,0.6875],[313,0.71875],[314,0.79688],[315,0.64062],[316,0.73438],[317,0.64062],[318,0.625],[319,0.71875],[320,0.76562],[321,0.71875],[322,0.70312],[323,0.71875],[324,0.64062],[325,0.76562],[326,0.73438],[327,0.71875],[328,0.73438],[329,0.60938],[330,0.84375],[331,0.70312],[332,0.6875],[333,0.67188],[334,0.64062],[335,0.75],[336,0.70312],[337,0.79688],[338,0.60938],[339,0.67188],[340,0.67188],[341,0.65625],[342,0.625],[343,0.64062],[344,0.65625],[345,0.57812],[346,0.73438],[347,0.75],[348,0.73438],[349,0.75],[350,0.75],[351,0.59375],[352,0.76562],[353,0.6875],[354,0.65625],[355,0.59375],[356,0.75],[357,0.75],[358,0.71875],[359,0.75],[360,0.67188],[361,0.59375],[362,0.79688],[363,0.65625],[364,0.76562],[365,0.625],[366,0.71875],[367,0.84375],[368,0.73438],[369,0.76562],[370,0.70312],[371,0.625],[372,0.79688],[373,0.82812],[374,0.70312],[375,0.78125],[376,0.6875],[377,0.67188],[378,0.67188],[379,0.71875],[380,0.70312],[381,0.76562],[382,0.6875],[383,0.71875],[384,0.78125],[385,0.8125],[386,0.70312],[387,0.75],[388,0.71875],[389,0.70312],[390,0.78125],[391,0.625],[392,0.76562],[393,0.6875],[394,0.59375],[395,0.67188],[396,0.65625],[397,0.64062],[398,0.75],[399,0.75]]},"recipe":{"acc":[[9,0.63333],[19,0.59167],[29,0.625],[39,0.64167],[49,0.625],[59,0.66667],[69,0.70833],[79,0.68333],[89,0.625],[99,0.73333],[109,0.66667],[119,0.70833],[129,0.68333],[139,0.725],[149,0.7],[159,0.74167],[169,0.76667],[179,0.73333],[189,0.73333],[199,0.75],[209,0.775],[219,0.75833],[229,0.71667],[239,0.73333],[249,0.74167],[259,0.76667],[269,0.81667],[279,0.80833],[289,0.76667],[294,0.78333],[299,0.8],[304,0.80833],[309,0.79167],[314,0.78333],[319,0.81667],[324,0.83333],[329,0.80833],[334,0.79167],[339,0.81667],[344,0.78333],[349,0.8],[354,0.78333],[359,0.78333],[364,0.825],[369,0.79167],[374,0.75],[379,0.81667],[384,0.8],[389,0.84167],[394,0.75],[399,0.75833],[404,0.8],[409,0.75833],[414,0.75833],[419,0.775],[424,0.75],[429,0.76667],[434,0.81667],[439,0.84167],[444,0.79167],[449,0.76667],[454,0.775],[459,0.79167],[464,0.8],[469,0.75],[474,0.8],[479,0.76667],[484,0.81667],[489,0.79167],[494,0.78333],[499,0.73333]],"len":[[9,28164.0],[19,34120.0],[29,28471.0],[39,30111.0],[49,29703.0],[59,28152.0],[69,29462.0],[79,30811.0],[119,29291.0],[129,32061.0],[139,31208.0],[149,34041.0],[159,37790.0],[169,36827.0],[179,36378.0],[189,38327.0],[199,41296.0],[209,36088.0],[219,40485.0],[229,39863.0],[239,35951.0],[249,35385.0],[259,36621.0],[269,35979.0],[279,37413.0],[289,36149.0],[294,39013.0],[299,38846.0],[304,38360.0],[309,39547.0],[314,40198.0],[319,39883.0],[324,41832.0],[329,39750.0],[334,39466.0],[339,38749.0],[344,36789.0],[349,34485.0],[354,31647.0],[359,35058.0],[364,34556.0],[369,33844.0],[374,35966.0],[379,31573.0],[384,29840.0],[389,30946.0],[394,30805.0],[399,31671.0],[404,30839.0],[409,31194.0],[414,32094.0],[419,31124.0],[424,32998.0],[429,34946.0],[434,31104.0],[439,30361.0],[444,31991.0],[449,35163.0],[454,35276.0],[459,31874.0],[464,34418.0],[469,34443.0],[474,31442.0],[479,36041.0],[484,33019.0],[489,31671.0],[494,28585.0],[499,29775.0]],"rep":[[9,0.0],[19,0.025],[29,0.0],[39,0.0],[49,0.0],[59,0.0],[69,0.0],[79,0.0],[119,0.0],[129,0.0],[139,0.00833],[149,0.0],[159,0.00833],[169,0.0],[179,0.0],[189,0.0],[199,0.00833],[209,0.00833],[219,0.00833],[229,0.00833],[239,0.0],[249,0.00833],[259,0.0],[269,0.01667],[279,0.0],[289,0.01667],[294,0.00833],[299,0.00833],[304,0.0],[309,0.00833],[314,0.03333],[319,0.00833],[324,0.0],[329,0.0],[334,0.0],[339,0.0],[344,0.0],[349,0.0],[354,0.0],[359,0.0],[364,0.0],[369,0.00833],[374,0.0],[379,0.0],[384,0.00833],[389,0.00833],[394,0.0],[399,0.0],[404,0.0],[409,0.0],[414,0.0],[419,0.01667],[424,0.01667],[429,0.00833],[434,0.00833],[439,0.0],[444,0.0],[449,0.0],[454,0.0],[459,0.0],[464,0.00833],[469,0.00833],[474,0.0],[479,0.00833],[484,0.0],[489,0.0],[494,0.0],[499,0.0]],"trunc":[[9,0.01667],[19,0.025],[29,0.0],[39,0.00833],[49,0.0],[59,0.0],[69,0.00833],[79,0.0],[119,0.0],[129,0.0],[139,0.00833],[149,0.00833],[159,0.00833],[169,0.00833],[179,0.01667],[189,0.00833],[199,0.025],[209,0.025],[219,0.05],[229,0.01667],[239,0.0],[249,0.03333],[259,0.0],[269,0.03333],[279,0.00833],[289,0.03333],[294,0.00833],[299,0.025],[304,0.01667],[309,0.025],[314,0.03333],[319,0.025],[324,0.00833],[329,0.025],[334,0.00833],[339,0.025],[344,0.01667],[349,0.00833],[354,0.00833],[359,0.0],[364,0.00833],[369,0.01667],[374,0.00833],[379,0.00833],[384,0.01667],[389,0.00833],[394,0.00833],[399,0.0],[404,0.0],[409,0.0],[414,0.00833],[419,0.01667],[424,0.025],[429,0.00833],[434,0.00833],[439,0.0],[444,0.0],[449,0.025],[454,0.00833],[459,0.00833],[464,0.00833],[469,0.01667],[474,0.0],[479,0.00833],[484,0.0],[489,0.00833],[494,0.0],[499,0.0]],"drop":[[0,0.22078],[1,0.33333],[2,0.22078],[3,0.28571],[4,0.2],[5,0.27711],[6,0.24051],[7,0.21053],[8,0.18919],[9,0.23077],[10,0.26829],[11,0.23077],[12,0.29412],[13,0.27711],[14,0.29412],[15,0.33333],[16,0.31818],[17,0.32584],[18,0.29412],[19,0.24051],[20,0.22078],[21,0.22078],[22,0.26829],[23,0.18919],[24,0.29412],[25,0.30233],[26,0.25926],[27,0.16667],[28,0.21053],[29,0.2],[30,0.21053],[31,0.2],[32,0.26829],[33,0.2],[34,0.23077],[35,0.23077],[36,0.14286],[37,0.28571],[38,0.17808],[39,0.36842],[40,0.27711],[41,0.22078],[42,0.29412],[43,0.21053],[44,0.23077],[45,0.31034],[46,0.25],[47,0.22078],[48,0.23077],[49,0.31034],[50,0.28571],[51,0.29412],[52,0.26829],[53,0.31034],[54,0.29412],[55,0.27711],[56,0.25926],[57,0.29412],[58,0.33333],[59,0.32584],[60,0.23077],[61,0.29412],[62,0.25],[63,0.28571],[64,0.26829],[65,0.31034],[66,0.28571],[67,0.31818],[68,0.25],[69,0.27711],[70,0.21053],[71,0.27711],[72,0.26829],[73,0.31034],[74,0.34066],[75,0.25926],[76,0.25926],[77,0.28571],[78,0.23077],[79,0.28571],[80,0.31034],[81,0.375],[82,0.34783],[83,0.31034],[84,0.28571],[85,0.4],[86,0.30233],[87,0.35484],[88,0.27711],[89,0.34783],[90,0.34783],[91,0.26829],[92,0.40594],[93,0.26829],[94,0.24051],[95,0.35484],[96,0.33333],[97,0.375],[98,0.31818],[99,0.31818],[100,0.38776],[101,0.38144],[102,0.31034],[103,0.41176],[104,0.35484],[105,0.25926],[106,0.34066],[107,0.42857],[108,0.45455],[109,0.41748],[110,0.33333],[111,0.40594],[112,0.375],[113,0.38144],[114,0.35484],[115,0.41748],[116,0.38144],[117,0.38776],[118,0.38776],[119,0.27711],[120,0.42308],[121,0.33333],[122,0.43396],[123,0.35484],[124,0.38144],[125,0.46903],[126,0.42308],[127,0.30233],[128,0.4],[129,0.36842],[130,0.31034],[131,0.4],[132,0.42857],[133,0.39394],[134,0.34783],[135,0.41176],[136,0.41176],[137,0.3617],[138,0.33333],[139,0.40594],[140,0.35484],[141,0.4],[142,0.43925],[143,0.29412],[144,0.33333],[145,0.46429],[146,0.36842],[147,0.41176],[148,0.46429],[149,0.39394],[150,0.40594],[151,0.45946],[152,0.42308],[153,0.41748],[154,0.47368],[155,0.47368],[156,0.43396],[157,0.43925],[158,0.4],[159,0.45946],[160,0.5122],[161,0.55556],[162,0.41176],[163,0.36842],[164,0.45946],[165,0.49153],[166,0.45946],[167,0.41176],[168,0.47826],[169,0.42857],[170,0.46903],[171,0.44954],[172,0.49153],[173,0.49153],[174,0.55556],[175,0.44444],[176,0.46903],[177,0.48276],[178,0.45946],[179,0.44954],[180,0.41176],[181,0.43396],[182,0.41748],[183,0.38776],[184,0.44954],[185,0.40594],[186,0.43396],[187,0.45946],[188,0.46429],[189,0.50413],[190,0.46903],[191,0.48276],[192,0.47826],[193,0.47826],[194,0.47826],[195,0.47826],[196,0.42857],[197,0.4958],[198,0.41748],[199,0.44954],[200,0.49153],[201,0.45455],[202,0.58042],[203,0.41748],[204,0.44954],[205,0.43925],[206,0.41176],[207,0.41748],[208,0.47826],[209,0.39394],[210,0.44444],[211,0.49153],[212,0.44954],[213,0.43396],[214,0.4958],[215,0.45946],[216,0.47368],[217,0.43396],[218,0.43925],[219,0.46429],[220,0.48718],[221,0.41748],[222,0.42857],[223,0.42308],[224,0.49153],[225,0.47826],[226,0.48276],[227,0.43396],[228,0.52381],[229,0.5],[230,0.54198],[231,0.49153],[232,0.46903],[233,0.46429],[234,0.4958],[235,0.45946],[236,0.47368],[237,0.53846],[238,0.5122],[239,0.45455],[240,0.46429],[241,0.5122],[242,0.46903],[243,0.43396],[244,0.47826],[245,0.49153],[246,0.46903],[247,0.49153],[248,0.46903],[249,0.55556],[250,0.41748],[251,0.43925],[252,0.4958],[253,0.47368],[254,0.42308],[255,0.47826],[256,0.42857],[257,0.44444],[258,0.45455],[259,0.48718],[260,0.58904],[261,0.42308],[262,0.49153],[263,0.4958],[264,0.4958],[265,0.48718],[266,0.48276],[267,0.48718],[268,0.62264],[269,0.47368],[270,0.47368],[271,0.57746],[272,0.47826],[273,0.54545],[274,0.49153],[275,0.44954],[276,0.52381],[277,0.55882],[278,0.45946],[279,0.5],[280,0.44954],[281,0.4958],[282,0.48718],[283,0.57447],[284,0.48718],[285,0.61783],[286,0.43925],[287,0.61783],[288,0.44954],[289,0.45946],[290,0.5],[291,0.59459],[292,0.4958],[293,0.55224],[294,0.45946],[295,0.60526],[296,0.5],[297,0.46429],[298,0.4],[299,0.43396],[300,0.55556],[301,0.5082],[302,0.55556],[303,0.59459],[304,0.44954],[305,0.43925],[306,0.6],[307,0.62025],[308,0.48718],[309,0.4958],[310,0.625],[311,0.47826],[312,0.53846],[313,0.57746],[314,0.41176],[315,0.6],[316,0.46903],[317,0.54545],[318,0.625],[319,0.4958],[320,0.64497],[321,0.4958],[322,0.53488],[323,0.4958],[324,0.61783],[325,0.5],[326,0.62733],[327,0.45946],[328,0.56835],[329,0.61783],[330,0.49153],[331,0.58904],[332,0.55882],[333,0.59184],[334,0.55556],[335,0.48276],[336,0.56835],[337,0.41748],[338,0.59459],[339,0.60265],[340,0.55556],[341,0.4958],[342,0.56522],[343,0.55556],[344,0.45946],[345,0.4958],[346,0.5],[347,0.67568],[348,0.45946],[349,0.58621],[350,0.59459],[351,0.58042],[352,0.4958],[353,0.5],[354,0.65517],[355,0.46903],[356,0.48718],[357,0.53488],[358,0.42308],[359,0.59459],[360,0.49153],[361,0.6],[362,0.62025],[363,0.46429],[364,0.56522],[365,0.57143],[366,0.6],[367,0.41176],[368,0.52756],[369,0.42308],[370,0.56204],[371,0.48718],[372,0.67213],[373,0.48718],[374,0.6129],[375,0.45455],[376,0.44954],[377,0.47826],[378,0.54545],[379,0.60784],[380,0.44444],[381,0.47368],[382,0.45946],[383,0.62025],[384,0.45946],[385,0.46903],[386,0.5],[387,0.56835],[388,0.47368],[389,0.59459],[390,0.41176],[391,0.47826],[392,0.48276],[393,0.6319],[394,0.42857],[395,0.5],[396,0.62264],[397,0.58904],[398,0.55882],[399,0.6],[400,0.45946],[401,0.5122],[402,0.5],[403,0.4958],[404,0.4958],[405,0.55882],[406,0.6],[407,0.58042],[408,0.5],[409,0.4958],[410,0.43925],[411,0.47368],[412,0.50413],[413,0.55882],[414,0.62264],[415,0.4958],[416,0.64286],[417,0.48718],[418,0.62733],[419,0.45455],[420,0.55556],[421,0.46429],[422,0.42857],[423,0.47368],[424,0.62025],[425,0.46429],[426,0.59184],[427,0.41748],[428,0.64706],[429,0.45946],[430,0.625],[431,0.43925],[432,0.55556],[433,0.46429],[434,0.45455],[435,0.49153],[436,0.49153],[437,0.47826],[438,0.62733],[439,0.43396],[440,0.5],[441,0.60784],[442,0.43925],[443,0.49153],[444,0.55882],[445,0.58042],[446,0.61783],[447,0.43396],[448,0.47826],[449,0.4958],[450,0.48718],[451,0.62025],[452,0.56835],[453,0.61783],[454,0.44444],[455,0.48718],[456,0.48718],[457,0.48276],[458,0.48276],[459,0.55556],[460,0.57746],[461,0.47826],[462,0.47826],[463,0.5],[464,0.65517],[465,0.42308],[466,0.45946],[467,0.59732],[468,0.47826],[469,0.48718],[470,0.62025],[471,0.48276],[472,0.63636],[473,0.47368],[474,0.48718],[475,0.57447],[476,0.63415],[477,0.42308],[478,0.49153],[479,0.62963],[480,0.49153],[481,0.63415],[482,0.45946],[483,0.48276],[484,0.57143],[485,0.48276],[486,0.57143],[487,0.63855],[488,0.46903],[489,0.55556],[490,0.5],[491,0.62264],[492,0.55224],[493,0.48718],[494,0.56522],[495,0.59732],[496,0.47368],[497,0.57447],[498,0.45946],[499,0.48718]]}};
+
+const CSS = getComputedStyle(document.documentElement);
+const tok = n => CSS.getPropertyValue(n).trim();
+
+/* ---------- helpers ---------- */
+/* Smoothing is defined in STEP units, not point counts: the eval metrics are
+   logged every 5 steps and drop_ratio_all every step, so an index-based window
+   would smooth them by wildly different amounts. A step-based window also
+   handles the recipe arm's occasional 10-step eval gaps correctly. */
+let HALF = 5;                      /* half-width of the averaging window, in steps */
+function smooth(series, half){
+  if (!half) return series.slice();
+  const out = [];
+  for (let i = 0; i < series.length; i++){
+    const x = series[i][0];
+    let s = 0, n = 0;
+    for (let j = i; j >= 0 && x - series[j][0] <= half; j--){s += series[j][1]; n++;}
+    for (let j = i + 1; j < series.length && series[j][0] - x <= half; j++){s += series[j][1]; n++;}
+    out.push([x, s / n]);
+  }
+  return out;
+}
+const pct  = v => (v * 100).toFixed(0) + '%';
+const pct1 = v => (v * 100).toFixed(1) + '%';
+const ktok = v => (v / 1000).toFixed(0) + 'k';
+const SVGNS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs){
+  const n = document.createElementNS(SVGNS, tag);
+  for (const k in attrs) n.setAttribute(k, attrs[k]);
+  return n;
+}
+
+/* ---------- chart ---------- */
+function chart(mountId, spec){
+  const host = document.getElementById(mountId);
+  host.innerHTML = '';
+  const W = spec.w, H = spec.h;
+  const P = Object.assign({t: 16, r: 18, b: 30, l: 46}, spec.pad || {});
+  const iw = W - P.l - P.r, ih = H - P.t - P.b;
+  const [x0, x1] = spec.x.domain, [y0, y1] = spec.y.domain;
+  const sx = v => P.l + (v - x0) / (x1 - x0) * iw;
+  const sy = v => P.t + ih - (v - y0) / (y1 - y0) * ih;
+
+  const wrapper = document.createElement('div');
+  wrapper.style.position = 'relative';
+  const svg = el('svg', {viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': spec.aria || ''});
+
+  /* shaded band (drawn first, under everything) */
+  (spec.bands || []).forEach(b => {
+    svg.appendChild(el('rect', {
+      x: sx(b.from), y: P.t, width: sx(b.to) - sx(b.from), height: ih,
+      fill: tok('--band')
+    }));
+  });
+
+  /* horizontal gridlines + y ticks */
+  spec.y.ticks.forEach(t => {
+    svg.appendChild(el('line', {
+      x1: P.l, x2: P.l + iw, y1: sy(t), y2: sy(t),
+      stroke: tok('--grid'), 'stroke-width': 1
+    }));
+    const lab = el('text', {x: P.l - 9, y: sy(t) + 3.5, 'text-anchor': 'end', class: 'tick'});
+    lab.textContent = spec.y.fmt(t);
+    svg.appendChild(lab);
+  });
+
+  /* baseline axis */
+  svg.appendChild(el('line', {
+    x1: P.l, x2: P.l + iw, y1: P.t + ih, y2: P.t + ih,
+    stroke: tok('--axis'), 'stroke-width': 1
+  }));
+
+  /* x ticks */
+  spec.x.ticks.forEach(t => {
+    const lab = el('text', {x: sx(t), y: P.t + ih + 16, 'text-anchor': 'middle', class: 'tick'});
+    lab.textContent = t;
+    svg.appendChild(lab);
+  });
+  if (spec.x.label){
+    /* sits clear of the last tick, in the right padding */
+    const xl = el('text', {x: P.l + iw + 13, y: P.t + ih + 16, 'text-anchor': 'start', class: 'axname'});
+    xl.textContent = spec.x.label;
+    svg.appendChild(xl);
+  }
+
+  /* series */
+  const prepared = spec.series.map(s => {
+    const sm = smooth(s.data, HALF);
+    const ghost = !!s.ghost;
+
+    /* raw scatter */
+    const g = el('g', {opacity: ghost ? 0.14 : 0.26});
+    s.data.forEach(p => {
+      if (p[1] < y0 || p[1] > y1) return;
+      g.appendChild(el('circle', {cx: sx(p[0]), cy: sy(p[1]), r: 1.7, fill: tok(s.color)}));
+    });
+    svg.appendChild(g);
+
+    /* smoothed line */
+    const d = sm.map((p, i) => (i ? 'L' : 'M') + sx(p[0]).toFixed(1) + ' ' + sy(p[1]).toFixed(1)).join(' ');
+    svg.appendChild(el('path', {
+      d, fill: 'none', stroke: tok(s.color),
+      'stroke-width': ghost ? 1.5 : 2,
+      'stroke-linecap': 'round', 'stroke-linejoin': 'round',
+      opacity: ghost ? 0.55 : 1
+    }));
+    return {spec: s, sm};
+  });
+
+  /* annotations, above the lines.
+     y is read off the currently smoothed curve, so a marker never floats away
+     from its line when the smoothing window changes; a label that quotes a
+     value is likewise generated from what is actually plotted. */
+  (spec.marks || []).forEach(m => {
+    const sm = prepared[m.s].sm;
+    let pt;
+    if (m.x === 'max'){
+      pt = sm.reduce((a, b) => (b[1] > a[1] ? b : a), sm[0]);
+    } else {
+      let bd = Infinity; pt = sm[0];
+      for (const q of sm){
+        const dd = Math.abs(q[0] - m.x);
+        if (dd < bd){bd = dd; pt = q;}
+      }
+    }
+    const cx = sx(pt[0]), cy = sy(pt[1]);
+    svg.appendChild(el('circle', {cx, cy, r: 5.5, fill: tok('--surface')}));
+    svg.appendChild(el('circle', {cx, cy, r: 3.6, fill: tok(prepared[m.s].spec.color)}));
+    if (m.label){
+      const anchor = m.anchor || 'middle';
+      const dx = anchor === 'start' ? 10 : anchor === 'end' ? -10 : 0;
+      const t = el('text', {
+        x: cx + dx, y: cy + (m.dy || -13), 'text-anchor': anchor, class: 'note-strong'
+      });
+      t.textContent = m.label(pt[1], pt[0]);
+      svg.appendChild(t);
+    }
+  });
+  (spec.notes || []).forEach(n => {
+    const t = el('text', {x: sx(n.x), y: sy(n.y), 'text-anchor': n.anchor || 'middle', class: 'note'});
+    t.textContent = n.text;
+    svg.appendChild(t);
+  });
+
+  /* hover layer */
+  const cross = el('line', {
+    x1: 0, x2: 0, y1: P.t, y2: P.t + ih,
+    stroke: tok('--axis'), 'stroke-width': 1, opacity: 0
+  });
+  svg.appendChild(cross);
+  const dots = prepared.map(p => {
+    const ring = el('circle', {r: 5.5, fill: tok('--surface'), opacity: 0});
+    const dot  = el('circle', {r: 3.4, fill: tok(p.spec.color), opacity: 0});
+    svg.appendChild(ring); svg.appendChild(dot);
+    return {ring, dot};
+  });
+
+  const tip = document.createElement('div');
+  tip.className = 'tip';
+  wrapper.appendChild(svg);
+  wrapper.appendChild(tip);
+  host.appendChild(wrapper);
+
+  const hit = el('rect', {x: P.l, y: P.t, width: iw, height: ih, fill: 'transparent'});
+  svg.appendChild(hit);
+
+  function hide(){
+    cross.setAttribute('opacity', 0);
+    dots.forEach(d => {d.ring.setAttribute('opacity', 0); d.dot.setAttribute('opacity', 0);});
+    tip.style.opacity = 0;
+  }
+  function move(ev){
+    const r = svg.getBoundingClientRect();
+    const px = (ev.clientX - r.left) / r.width * W;
+    const xv = x0 + (px - P.l) / iw * (x1 - x0);
+
+    let anyStep = null;
+    const rows = [];
+    prepared.forEach((p, i) => {
+      let best = null, bd = Infinity;
+      for (const q of p.sm){
+        const dd = Math.abs(q[0] - xv);
+        if (dd < bd){bd = dd; best = q;}
+      }
+      /* drop the readout when the pointer is past this run's last step */
+      if (!best || bd > (x1 - x0) * 0.06){
+        dots[i].ring.setAttribute('opacity', 0);
+        dots[i].dot.setAttribute('opacity', 0);
+        return;
+      }
+      anyStep = anyStep === null ? best[0] : anyStep;
+      dots[i].ring.setAttribute('cx', sx(best[0])); dots[i].ring.setAttribute('cy', sy(best[1]));
+      dots[i].dot.setAttribute('cx', sx(best[0]));  dots[i].dot.setAttribute('cy', sy(best[1]));
+      dots[i].ring.setAttribute('opacity', 1);      dots[i].dot.setAttribute('opacity', 1);
+      rows.push({label: p.spec.label, color: p.spec.color, v: spec.y.tip(best[1])});
+    });
+
+    if (!rows.length){hide(); return;}
+    cross.setAttribute('x1', sx(anyStep)); cross.setAttribute('x2', sx(anyStep));
+    cross.setAttribute('opacity', 1);
+
+    tip.innerHTML = '<div class="tip-step">step ' + anyStep + '</div>' +
+      rows.map(r => '<div class="tip-row"><i style="background:' + tok(r.color) + '"></i>' +
+        r.label + '<b>' + r.v + '</b></div>').join('');
+    tip.style.opacity = 1;
+    const relX = sx(anyStep) / W * r.width;
+    const tw = tip.offsetWidth;
+    tip.style.left = Math.max(2, Math.min(r.width - tw - 2, relX - tw / 2)) + 'px';
+    tip.style.top = '2px';
+  }
+  hit.addEventListener('mousemove', move);
+  hit.addEventListener('mouseleave', hide);
+}
+
+/* ---------- shared scales (figures 2 and 4 read against these) ---------- */
+const XS = {domain: [0, 500], ticks: [0, 100, 200, 300, 400, 500], label: 'step'};
+const Y = {
+  acc:   {domain: [0.50, 0.90], ticks: [0.5, 0.6, 0.7, 0.8, 0.9], fmt: pct,  tip: pct1},
+  len:   {domain: [20000, 60000], ticks: [20000, 30000, 40000, 50000, 60000], fmt: ktok,
+          tip: v => (v / 1000).toFixed(1) + 'k'},
+  rep:   {domain: [0, 0.06], ticks: [0, 0.02, 0.04, 0.06], fmt: pct, tip: pct1},
+  trunc: {domain: [0, 0.14], ticks: [0, 0.04, 0.08, 0.12], fmt: pct, tip: pct1},
+  drop:  {domain: [0, 1], ticks: [0, 0.25, 0.5, 0.75, 1], fmt: pct, tip: pct1}
+};
+const B = (k, ghost) => ({
+  data: DATA.baseline[k], color: '--baseline', label: 'Baseline', ghost: !!ghost
+});
+const R = k => ({data: DATA.recipe[k], color: '--recipe', label: 'Complete recipe'});
+
+const PANEL = {w: 520, h: 214, pad: {t: 14, r: 40, b: 28, l: 46}};
+const wide  = {w: 1040, h: 344, pad: {t: 26, r: 52, b: 34, l: 52}};
+
+/* every chart on the page, so the smoothing control can redraw them all */
+const CHARTS = [
+  ['f1', Object.assign({}, wide, {
+    x: XS, y: Y.acc,
+    bands: [{from: 144, to: 400}],
+    series: [B('acc')],
+    marks: [{s: 0, x: 144, anchor: 'end', dy: 4,
+             label: v => pct(v) + ' @ step 144'}],
+    notes: [{x: 272, y: 0.878, text: 'the 255 steps that follow — no net gain'}],
+    aria: 'Baseline AIME 2025 accuracy against training step: it rises for 150 steps, then runs flat'
+  })],
+
+  ['f2a', Object.assign({}, PANEL, {x: XS, y: Y.len,   series: [B('len')],
+    aria: 'Baseline response length in tokens against training step'})],
+  ['f2b', Object.assign({}, PANEL, {x: XS, y: Y.rep,   series: [B('rep')],
+    aria: 'Baseline repetition fraction against training step'})],
+  ['f2c', Object.assign({}, PANEL, {x: XS, y: Y.trunc, series: [B('trunc')],
+    aria: 'Baseline truncation ratio against training step'})],
+  ['f2d', Object.assign({}, PANEL, {x: XS, y: Y.drop,  series: [B('drop')],
+    aria: 'Baseline zero-variance discard ratio against training step'})],
+
+  ['f3', Object.assign({}, wide, {
+    x: XS, y: Y.acc,
+    series: [B('acc', true), R('acc')],
+    marks: [
+      {s: 0, x: 144, anchor: 'end',    dy: 26, label: v => 'baseline tops out at ' + pct(v)},
+      {s: 1, x: 'max', anchor: 'middle', dy: -14, label: (v, x) => pct(v) + ' @ step ' + x}
+    ],
+    aria: 'AIME 2025 accuracy for the complete recipe against the baseline; the recipe keeps rising after the baseline flattens'
+  })],
+
+  ['f4a', Object.assign({}, PANEL, {x: XS, y: Y.len,   series: [B('len', true),   R('len')],
+    aria: 'Response length in tokens, complete recipe against baseline'})],
+  ['f4b', Object.assign({}, PANEL, {x: XS, y: Y.rep,   series: [B('rep', true),   R('rep')],
+    aria: 'Repetition fraction, complete recipe against baseline'})],
+  ['f4c', Object.assign({}, PANEL, {x: XS, y: Y.trunc, series: [B('trunc', true), R('trunc')],
+    aria: 'Truncation ratio, complete recipe against baseline'})],
+  ['f4d', Object.assign({}, PANEL, {x: XS, y: Y.drop,  series: [B('drop', true),  R('drop')],
+    aria: 'Zero-variance discard ratio, complete recipe against baseline'})]
+];
+
+function drawAll(){ CHARTS.forEach(([id, spec]) => chart(id, spec)); }
+
+/* ---------- smoothing control ---------- */
+const PRESETS = [
+  {id: 'raw',    label: 'None',   half: 0},
+  {id: 'light',  half: 5,  label: '± 5 steps'},
+  {id: 'medium', half: 15, label: '± 15 steps'},
+  {id: 'heavy',  half: 30, label: '± 30 steps'}
+];
+const segs = document.getElementById('smoothing');
+PRESETS.forEach(p => {
+  const b = document.createElement('button');
+  b.type = 'button';
+  b.textContent = p.label;
+  b.setAttribute('aria-pressed', p.half === HALF ? 'true' : 'false');
+  b.addEventListener('click', () => {
+    HALF = p.half;
+    segs.querySelectorAll('button').forEach(o =>
+      o.setAttribute('aria-pressed', o === b ? 'true' : 'false'));
+    drawAll();
+  });
+  segs.appendChild(b);
+});
+
+drawAll();
+</script>
+
+<style>
+  .masthead,
+  .plate:not(:first-of-type),
+  .colophon {
+    display: none !important;
+  }
+  .wrap {
+    max-width: 1120px;
+    padding-top: 24px;
+  }
+  .plate:first-of-type {
+    border-top: none;
+    padding-top: 0;
+  }
+</style>
